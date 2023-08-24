@@ -1,0 +1,11 @@
+name: Django testing and deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  django-tests:
+    runs-on: ubuntu-22.04
+    env:
