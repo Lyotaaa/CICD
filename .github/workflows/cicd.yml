@@ -62,7 +62,6 @@ jobs:
           username: ${{ secrets.SSH_NAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            su lyota
             cd /home/lyota/CICD
             git pull -f origin main
             source env/bin/activate
