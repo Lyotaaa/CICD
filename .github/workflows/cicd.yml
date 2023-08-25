@@ -55,5 +55,17 @@ jobs:
           DB_PASSWORD: ${{ env.DB_PASSWORD }}
           DB_HOST: ${{ env.DB_HOST }}
           DB_PORT: ${{ env.DB_PORT }}
-#      - name: Деплой
-#        uses:
+      - name: Деплой
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_NAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            su lyota
+            cd /home/lyota/CICD
+            git pull -f origin main
+            source env/bin/activate
+            pip install -r requirements.txt
+            python manage.py migrate
+            sudo systemctl restart gunicorn
